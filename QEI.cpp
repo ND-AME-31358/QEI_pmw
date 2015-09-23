@@ -297,8 +297,10 @@ void QEI::encode(void) {
 
 float QEI::getVelocity()
 {
-     if(prevDirection_ != currDirection_ || prevTime_ == currTime_)
-     {
+     int ct = currTime_;
+     int pt = prevTime_;
+     
+     if(prevDirection_ != currDirection_ || pt == ct) {
         return 0;    
      }
      double dt = (currTime_ - prevTime_)/1000000.;

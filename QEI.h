@@ -244,10 +244,10 @@ private:
     int          prevState_;
     int          currState_;
     
-    int         currTime_;
-    int         prevTime_;
-    int         currDirection_;
-    int         prevDirection_;
+    volatile int         currTime_;
+    volatile int         prevTime_;
+    volatile int         currDirection_;
+    volatile int         prevDirection_;
     
     Timer timer;
 
