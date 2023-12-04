@@ -297,13 +297,19 @@ void QEI::encode(void) {
 
 float QEI::getVelocity()
 {
-     int ct = currTime_;
-     int pt = prevTime_;
-     
-     if(prevDirection_ != currDirection_ || pt == ct) {
+     if(prevDirection_ != currDirection_ || prevTime_ == currTime_)
+     {
         return 0;    
      }
-     double dt = (currTime_ - prevTime_)/1000000.;
+     int delta_us_last = currTime_ - prevTime_;
+     int delta_us_current = timer.read_us() - currTime_;
+     float dt;
+     if(delta_us_last >= delta_us_current){
+        dt = (float) delta_us_last/1000000.;
+     }else{
+        dt = (float) delta_us_current/1000000.;
+     }
+     
      return ( (float) -currDirection_/dt );    
 }
 
